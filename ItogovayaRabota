@@ -1,0 +1,47 @@
+import pandas as pd
+import random
+
+lst = ['robot'] * 10
+lst += ['human'] * 10
+random.shuffle(lst)
+data = pd.DataFrame({'whoAmI': lst})
+print(data)
+
+data['tmp'] = 1
+data.set_index([data.index, 'whoAmI'], inplace=True)
+data = data.unstack(level=-1, fill_value= 0).astype(int)
+data.columns = data.columns.droplevel()
+data.columns.name = None
+print(data)
+
+Output exceeds the size limit. Open the full output data in a text editor
+   whoAmI
+0   human
+1   robot
+2   robot
+3   robot
+4   robot
+5   human
+6   robot
+7   human
+8   human
+9   human
+10  human
+11  robot
+12  robot
+13  robot
+14  human
+15  robot
+16  human
+17  human
+18  human
+19  robot
+    human  robot
+0       1      0
+1       0      1
+2       0      1
+...
+16      1      0
+17      1      0
+18      1      0
+19      0      1
